@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: NDC_framework
+Version: 0.1.0
+Summary: researching
+Author: Than HUYNH VAN
+Author-email: hthan401@gmail.com
+Requires-Python: >=3.10
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-python
+Dynamic: summary

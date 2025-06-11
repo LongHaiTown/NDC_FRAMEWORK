@@ -1,0 +1,11 @@
+README.md
+setup.py
+src/NDC_framework.egg-info/PKG-INFO
+src/NDC_framework.egg-info/SOURCES.txt
+src/NDC_framework.egg-info/dependency_links.txt
+src/NDC_framework.egg-info/top_level.txt
+src/ciphers/__init__.py
+src/ciphers/gpu/__init__.py
+src/ciphers/gpu/present80.py
+src/tests/__init__.py
+src/tests/cpu_vs_gpu.py
