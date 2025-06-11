@@ -83,6 +83,6 @@ def check_testvector():
     print("Expected: " + expected)
     assert Chex == "0x5579c1387b228445"
 
-check_testvector()
+
 
 

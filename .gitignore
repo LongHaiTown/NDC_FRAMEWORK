@@ -1,0 +1,10 @@
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+metadata/
+
