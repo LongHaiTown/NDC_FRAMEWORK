@@ -7,7 +7,11 @@ key_bits = 80
 word_size = 4
 
 def WORD_SIZE():
+<<<<<<< HEAD
     return(64)
+=======
+    return(64);
+>>>>>>> main
 
 Sbox = np.uint8([0xc, 0x5, 0x6, 0xb, 0x9, 0x0, 0xa, 0xd, 0x3, 0xe, 0xf, 0x8, 0x4, 0x7, 0x1, 0x2])
 PBox = np.uint8([0, 16, 32, 48, 1, 17, 33, 49, 2, 18, 34, 50, 3, 19, 35, 51,
@@ -73,15 +77,24 @@ def convert_from_binary(arr, _dtype=np.uint64):
         X[:, i] += 2**(WORD_SIZE()-1-j)*arr[:, pos]
   return(X);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 def check_testvector():
     p = np.zeros((1, 64), dtype = np.uint8)
     k = np.zeros((1, 80), dtype = np.uint8)
     C = convert_from_binary(encrypt(p,k,32))
     Chex = hex(C[0][0])
     expected = '0x5579c1387b228445'
+<<<<<<< HEAD
     assert Chex == "0x5579c1387b228445"
     print(C)
+=======
+    print("Computed: " + Chex)
+    print("Expected: " + expected)
+    assert Chex == "0x5579c1387b228445"
+>>>>>>> main
 
 check_testvector()
 
