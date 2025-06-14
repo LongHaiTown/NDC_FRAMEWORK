@@ -1,5 +1,6 @@
 # Cipher PRESENT-80
 
+import time
 import numpy as np
 
 plain_bits = 64
@@ -96,6 +97,13 @@ def check_testvector():
     assert Chex == "0x5579c1387b228445"
 >>>>>>> main
 
-check_testvector()
-
-
+# ==== Benchmark function ====
+def benchmark_present80_numpy(batch_size=10000, rounds=32):
+    # Tạo dữ liệu mẫu
+    p = np.zeros((batch_size, 64), dtype=np.uint8)
+    k = np.zeros((batch_size, 80), dtype=np.uint8)
+    # Đo tốc độ
+    start = time.time()
+    _ = encrypt(p, k, rounds)
+    end = time.time()
+    print(f'{batch_size} blocks, {rounds} rounds: {end-start:.4f}s, tốc độ = {batch_size/(end-start):,.2f} blocks/sec')

@@ -6,6 +6,8 @@ src/NDC_framework.egg-info/dependency_links.txt
 src/NDC_framework.egg-info/top_level.txt
 src/ciphers/__init__.py
 src/ciphers/gpu/__init__.py
-src/ciphers/gpu/present80.py
+src/ciphers/gpu/present80_gpu.py
+src/generator/1_cipherpair_generator.py
+src/generator/__init__.py
 src/tests/__init__.py
 src/tests/cpu_vs_gpu.py

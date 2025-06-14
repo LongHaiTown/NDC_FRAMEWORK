@@ -3,7 +3,10 @@ import time
 import numpy as np
 
 from ciphers.cpu import present80
+<<<<<<< HEAD
 from ciphers.cpu import katan
+=======
+>>>>>>> e398578b49ac4612590c7ca60472a7c2c9b1dcb4
 
 def make_train_data(encryption_function, plain_bits, key_bits, n, nr, delta_state=0, delta_key=0):
     """TEMPORARY VERSION."""
@@ -33,16 +36,29 @@ def integer_to_binary_array(int_val, num_bits):
     return np.array([int(i) for i in bin(int_val)[2:].zfill(num_bits)], dtype = np.uint8).reshape(1, num_bits)
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     encryption_function = katan.encrypt
     plain_bits = katan.plain_bits
     key_bits = katan.key_bits
     num_samples = 10_000_000
     nr = 22
+=======
+    encryption_function = present80.encrypt
+    plain_bits = 64;
+    key_bits =80
+    num_samples = 1_000_000
+    nr=32
+>>>>>>> e398578b49ac4612590c7ca60472a7c2c9b1dcb4
 
     delta = integer_to_binary_array(0x90000000000, plain_bits)
     delta_key = 0
     delta_plain = delta[:plain_bits]
 
+<<<<<<< HEAD
+=======
+    print("hello world")
+
+>>>>>>> e398578b49ac4612590c7ca60472a7c2c9b1dcb4
     data_generator = lambda num_samples, nr: make_train_data(
         encryption_function, plain_bits, key_bits, num_samples, nr, delta_plain, delta_key
     )

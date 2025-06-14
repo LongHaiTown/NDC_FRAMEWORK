@@ -1,3 +1,3 @@
-from ciphers.gpu import present80
+from ciphers.gpu import present80_gpu
 
 present80.hello()
