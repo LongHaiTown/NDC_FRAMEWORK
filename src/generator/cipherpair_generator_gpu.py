@@ -3,7 +3,7 @@ import cupy as cp
 from os import urandom
 
 from ciphers.gpu import present80_gpu
-
+from ciphers.gpu import p
 def make_train_data(encryption_function, plain_bits, key_bits, n, nr, delta_state=0, delta_key=0):
     """Sinh dữ liệu train cho NDC dùng cupy (GPU)."""
     # random keys & plaintext (0/1), tạo trên GPU
@@ -41,11 +41,11 @@ def make_train_data(encryption_function, plain_bits, key_bits, n, nr, delta_stat
 def integer_to_binary_array(int_val, num_bits):
     return cp.array([int(i) for i in bin(int_val)[2:].zfill(num_bits)], dtype = cp.uint8).reshape(1, num_bits)
 
-def benchmark_make_train_data_gpu(make_train_data_gpu, encryption_func_gpu, n, rounds, plain_bits, key_bits):
+def benchmark_make_train_data_gpu(encryption_func_gpu, n, rounds, plain_bits, key_bits):
     import cupy as cp
     cp.cuda.Stream.null.synchronize()
     start = time.time()
-    C, Y = make_train_data_gpu(encryption_func_gpu, plain_bits, key_bits, n, rounds)
+    C, Y = make_train_data(encryption_func_gpu, plain_bits, key_bits, n, rounds)
     cp.cuda.Stream.null.synchronize()
     end = time.time()
     print(f"[GPU/CuPy] Tạo {n} mẫu: {end-start:.4f}s ({n/(end-start):,.2f} mẫu/giây)")

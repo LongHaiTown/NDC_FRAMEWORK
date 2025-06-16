@@ -102,7 +102,7 @@ def check_testvector_gpu():
 check_testvector_gpu()
 
 # Mã hóa số lượng lớn, ví dụ:
-def benchmark_gpu(batch_size=10000):
+def benchmark_gpu(batch_size=100000):
     # Sinh batch plaintext/ciphertext ngẫu nhiên hoặc zero
     p = cp.zeros((batch_size, 64), dtype=cp.uint8)
     k = cp.zeros((batch_size, 80), dtype=cp.uint8)

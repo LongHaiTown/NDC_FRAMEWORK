@@ -1,10 +1,12 @@
 # Cipher SPECK-32-64
 
+import time
 import numpy as np
 
 plain_bits = 32
 key_bits = 64
 word_size = 16
+rounds = 22
 
 def WORD_SIZE():
     return(16);
@@ -91,5 +93,16 @@ def check_testvectors():
   kb = convert_to_binary(k)
   c = convert_from_binary(encrypt(pb, kb, 22))
   assert np.all(c[0] == [0xa868, 0x42f2])
+  
+# ==== Benchmark function ====
+def benchmark_numpy(batch_size=10000, rounds=rounds):
+    # Tạo dữ liệu mẫu
+    p = np.zeros((batch_size, 64), dtype=np.uint8)
+    k = np.zeros((batch_size, 80), dtype=np.uint8)
+    # Đo tốc độ
+    start = time.time()
+    _ = encrypt(p, k, rounds)
+    end = time.time()
+    print(f'{batch_size} blocks, {rounds} rounds: {end-start:.4f}s, tốc độ = {batch_size/(end-start):,.2f} blocks/sec')
 
 check_testvectors()

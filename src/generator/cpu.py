@@ -95,11 +95,11 @@ def generate_sequence_datasets_by_round(cipher_name, encryption_function, plain_
     print(f"\n🏁 All {cipher_name} datasets generated and saved.")
 
 if __name__ == "__main__":
-    cipher_name = "gimli"  
-    encryption_function = gimli.encrypt
-    plain_bits = gimli.plain_bits
-    key_bits = gimli.key_bits
-    num_samples = 1_0_000
+    cipher_name = "present"  
+    encryption_function = present80.encrypt
+    plain_bits = present80.plain_bits
+    key_bits = present80.key_bits
+    num_samples = 1_000_000
     rounds_range = [10]
     delta_p_hex = "0x90"
     generate_sequence_datasets_by_round(
