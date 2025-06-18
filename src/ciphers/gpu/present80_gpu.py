@@ -98,20 +98,3 @@ def check_testvector_gpu():
     print("Expected:", expected)
     assert Chex == expected
 
-# ĐỂ TEST:
-check_testvector_gpu()
-
-# Mã hóa số lượng lớn, ví dụ:
-def benchmark_gpu(batch_size=10000):
-    # Sinh batch plaintext/ciphertext ngẫu nhiên hoặc zero
-    p = cp.zeros((batch_size, 64), dtype=cp.uint8)
-    k = cp.zeros((batch_size, 80), dtype=cp.uint8)
-    cp.cuda.Stream.null.synchronize()
-    import time
-    st = time.time()
-    C = encrypt(p, k, 32)
-    cp.cuda.Stream.null.synchronize()
-    et = time.time()
-    print(f'{batch_size} blocks in {et-st:.4f}s, tốc độ = {batch_size/(et-st):.2f} blocks/sec.')
-
-# benchmark_gpu(10000)

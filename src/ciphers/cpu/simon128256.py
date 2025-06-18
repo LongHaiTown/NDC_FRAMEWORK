@@ -30,24 +30,17 @@ def enc_one_round(p, k):
     c1 = c1 ^ k
     return(c1, p[0])
 
-def dec_one_round(c, k):
-    p0, p1 = c[0], c[1]
-    tmp = tmp ^ rol(p1, GAMMA())
-    p1 = tmp ^ c[0] ^ k
-    p0 = c1
-    return(p0, p1)
-
 
 
 def encrypt(p, k, r):
     P = convert_from_binary(p)
     K = convert_from_binary(k).transpose()
     ks = expand_key(K, r)
-    x, y = P[:, 0], P[:, 1];
+    x, y = P[:, 0], P[:, 1]
     for i in range(r):
         rk = ks[i]
-        x,y = enc_one_round((x,y), rk);
-    return convert_to_binary([x, y]);
+        x,y = enc_one_round((x,y), rk)
+    return convert_to_binary([x, y])
 
 
 def expand_key(k, t):
@@ -64,33 +57,23 @@ def expand_key(k, t):
         ks[i] = ks[i-m] ^ tmp ^ c_z
     return(ks)
 
-
-
-#convert_to_binary takes as input an array of ciphertext pairs
-#where the first row of the array contains the lefthand side of the ciphertexts,
-#the second row contains the righthand side of the ciphertexts,
-#the third row contains the lefthand side of the second ciphertexts,
-#and so on
-#it returns an array of bit vectors containing the same data
 def convert_to_binary(arr):
-  X = np.zeros((len(arr) * WORD_SIZE(),len(arr[0])),dtype=np.uint8);
+  X = np.zeros((len(arr) * WORD_SIZE(),len(arr[0])),dtype=np.uint8)
   for i in range(len(arr) * WORD_SIZE()):
-    index = i // WORD_SIZE();
-    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1;
-    X[i] = (arr[index] >> offset) & 1;
-  X = X.transpose();
-  return(X);
+    index = i // WORD_SIZE()
+    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1
+    X[i] = (arr[index] >> offset) & 1
+  X = X.transpose()
+  return(X)
 
-# Convert_from_binary takes as input an n by num_bits binary matrix of type np.uint8, for n samples,
-# and converts it to an n by num_words array of type dtype.
 def convert_from_binary(arr, _dtype=np.uint64):
   num_words = arr.shape[1]//WORD_SIZE()
-  X = np.zeros((len(arr), num_words),dtype=_dtype);
+  X = np.zeros((len(arr), num_words),dtype=_dtype)
   for i in range(num_words):
     for j in range(WORD_SIZE()):
         pos = WORD_SIZE()*i+j
         X[:, i] += 2**(WORD_SIZE()-1-j)*arr[:, pos]
-  return(X);
+  return(X)
 
 def check_testvectors():
   p = np.uint64([0x74206e69206d6f6f, 0x6d69732061207369]).reshape(-1, 1)
@@ -100,4 +83,3 @@ def check_testvectors():
   c = convert_from_binary(encrypt(pb, kb, 72))
   assert np.all(c[0] == [0x8d2b5579afc8a3a0, 0x3bf72a87efe7b868])
 
-check_testvectors()

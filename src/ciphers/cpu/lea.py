@@ -8,9 +8,9 @@ key_bits = 128
 word_size = 32
 
 def WORD_SIZE():
-    return(32);
+    return(32)
 
-MASK_VAL = 2 ** WORD_SIZE() - 1;
+MASK_VAL = 2 ** WORD_SIZE() - 1
 DELTA=np.array([0xc3efe9db,0x44626b02,0x79e27c8a,0x78df30ec,0x715ea49e,0xc785da0a,0xe04ef22a,0xe5c40957])
 
 def rol(x,k):
@@ -24,7 +24,7 @@ def ror(x,k):
 
 
 def expand_key(K, t):
-    ks = [0 for i in range(t)];
+    ks = [0 for i in range(t)]
     tmp = [x for x in K]
     for i in range(t):
         tmp[0]=rol(    (tmp[0]+rol(DELTA[i%4], i) ) & MASK_VAL,1)
@@ -32,7 +32,7 @@ def expand_key(K, t):
         tmp[2]=rol(    (tmp[2]+rol(DELTA[i%4], i+2) ) & MASK_VAL,6)
         tmp[3]=rol(    (tmp[3]+rol(DELTA[i%4], i+3) ) & MASK_VAL,11)
         ks[i]=np.array([tmp[0],tmp[1],tmp[2],tmp[1],tmp[3],tmp[1]])
-    return(np.array(ks));
+    return(np.array(ks))
 
 
 
@@ -48,17 +48,17 @@ def encrypt(p, k, r):
         P[0] = rol(((p0^k0)+(p1^k1)) & MASK_VAL, 9)
         P[1] = ror(((p1^k2)+(p2^k3)) & MASK_VAL, 5)
         P[2] = ror(((p2^k4)+(p3^k5)) & MASK_VAL, 3)
-    return(convert_to_binary(P.byteswap()));
+    return(convert_to_binary(P.byteswap()))
 
 
 def convert_to_binary(arr):
   X = np.zeros((len(arr) * WORD_SIZE(),len(arr[0])),dtype=np.uint8);
   for i in range(len(arr) * WORD_SIZE()):
-    index = i // WORD_SIZE();
-    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1;
-    X[i] = (arr[index] >> offset) & 1;
-  X = X.transpose();
-  return(X);
+    index = i // WORD_SIZE()
+    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1
+    X[i] = (arr[index] >> offset) & 1
+  X = X.transpose()
+  return(X)
 
 
 def convert_from_binary(arr, _dtype=np.uint32):
@@ -68,7 +68,7 @@ def convert_from_binary(arr, _dtype=np.uint32):
     for j in range(WORD_SIZE()):
         pos = WORD_SIZE()*i+j
         X[:, i] += 2**(WORD_SIZE()-1-j)*arr[:, pos]
-  return(X);
+  return(X)
 
 
 def check_testvectors():
@@ -80,5 +80,3 @@ def check_testvectors():
   assert(np.all(convert_from_binary(convert_to_binary(p)) == p.transpose()))
   c = convert_from_binary(encrypt(pb, kb, 24))
   assert np.all(c[0] == e)
-
-check_testvectors()

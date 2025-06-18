@@ -72,5 +72,3 @@ def check_testvectors():
     expected = 0xba11c85a91bad119380ce880d24c2c683eceffea277a921c4f73a0bdda5a9cd884b673f034e52ff79e2bef49f41bb8d6
     C = encrypt(X, 0, 24)
     assert(np.all(encrypt(X, 0, 24) == convert_to_bin(expected, 384)))
-
-check_testvectors()

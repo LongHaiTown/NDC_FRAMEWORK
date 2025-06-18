@@ -187,4 +187,3 @@ def check_testvectors():
     c = encrypt(pt, key, 32)
     assert(np.all( convert_from_binary(c).flatten() == [0x00, 0xf4, 0x18, 0xae, 0xd9, 0x4f, 0x03, 0xf2]))
 
-# check_testvectors()

@@ -35,7 +35,7 @@ def P(arr):
 
 
 def expand_key(k, t):
-    ks = [0 for i in range(t)];
+    ks = [0 for i in range(t)]
     key = k.copy()
     for r in range(t):
         ks[r] = key[:, :64]
@@ -58,21 +58,21 @@ def encrypt(p, k, r):
 def convert_to_binary(arr):
   X = np.zeros((len(arr) * WORD_SIZE(),len(arr[0])),dtype=np.uint8);
   for i in range(len(arr) * WORD_SIZE()):
-    index = i // WORD_SIZE();
-    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1;
-    X[i] = (arr[index] >> offset) & 1;
-  X = X.transpose();
-  return(X);
+    index = i // WORD_SIZE()
+    offset = WORD_SIZE() - (i % WORD_SIZE()) - 1
+    X[i] = (arr[index] >> offset) & 1
+  X = X.transpose()
+  return(X)
 
 
 def convert_from_binary(arr, _dtype=np.uint64):
   num_words = arr.shape[1]//WORD_SIZE()
-  X = np.zeros((len(arr), num_words),dtype=_dtype);
+  X = np.zeros((len(arr), num_words),dtype=_dtype)
   for i in range(num_words):
     for j in range(WORD_SIZE()):
         pos = WORD_SIZE()*i+j
         X[:, i] += 2**(WORD_SIZE()-1-j)*arr[:, pos]
-  return(X);
+  return(X)
 
 def check_testvector():
     p = np.zeros((1, 64), dtype = np.uint8)
@@ -81,10 +81,10 @@ def check_testvector():
     Chex = hex(C[0][0])
     expected = '0x5579c1387b228445'
     assert Chex == "0x5579c1387b228445"
-    print(C)
+    print(Chex)
 
 # ==== Benchmark function ====
-def benchmark_present80_numpy(batch_size=10000, rounds=32):
+def benchmark_present80_cpu(batch_size=10000, rounds=32):
     # Tạo dữ liệu mẫu
     p = np.zeros((batch_size, 64), dtype=np.uint8)
     k = np.zeros((batch_size, 80), dtype=np.uint8)

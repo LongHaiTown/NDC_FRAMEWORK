@@ -90,7 +90,5 @@ def check_testvectors():
     assert hex(C[1]) == '0x432e61da'  
 
 
-check_testvectors()
-
 
 
