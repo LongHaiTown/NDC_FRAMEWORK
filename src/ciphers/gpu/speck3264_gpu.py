@@ -1,5 +1,4 @@
 import cupy as cp
-    
 # Thông số SPECK32/64
 plain_bits = 32
 key_bits = 64
@@ -79,6 +78,7 @@ def check_testvectors():
     print("Match expected ciphertext [0xa868, 0x42f2]?")
     print(cp.all(c[0] == cp.array([0xa868, 0x42f2], dtype=cp.uint16)))
 
+check_testvectors()
 def benchmark_gpu(batch_size=100000):
     p = cp.zeros((batch_size, 2), dtype=cp.uint16)
     k = cp.zeros((batch_size, 4), dtype=cp.uint16)
@@ -135,3 +135,5 @@ def check_gpu():
     print("Final ciphertext (bit-level path):", [hex(int(v)) for v in c[0]])
     print("Match expected ciphertext [0xa868, 0x42f2]?")
     print(cp.all(c[0] == cp.array([0xa868, 0x42f2], dtype=cp.uint16)))
+
+

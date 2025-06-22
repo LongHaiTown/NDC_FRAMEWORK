@@ -110,13 +110,13 @@ def train_neural_distinguisher(starting_round, data_generator, model_name, input
     if model_name == 'dbitnet':
         model = make_dbitnet(2 * input_size)
         optimizer = tf.keras.optimizers.Adam(amsgrad=True)
-    # elif model_name == 'gohr':
-    #     model = make_gohrnet(2 * input_size, word_size=word_size)
-    #     lr = LearningRateScheduler(cyclic_lr(10, 0.002, 0.0001))
-    #     optimizer = 'adam'
-    # elif model_name == 'gohr_amsgrad':
-    #     model = make_gohrnet(2 * input_size, word_size=word_size)
-    #     optimizer = Adam(amsgrad=True)
+    elif model_name == 'gohr':
+        model = make_gohrnet(2 * input_size, word_size=word_size)
+        lr = LearningRateScheduler(cyclic_lr(10, 0.002, 0.0001))
+        optimizer = 'adam'
+    elif model_name == 'gohr_amsgrad':
+        model = make_gohrnet(2 * input_size, word_size=word_size)
+        optimizer = Adam(amsgrad=True)
     # elif model_name == 'lbecnet':
     #     if custom_model is not None:
     #         model = custom_model  # Use provided custom model
@@ -210,3 +210,6 @@ def train_neural_distinguisher(starting_round, data_generator, model_name, input
         tf.keras.backend.clear_session()
 
     return best_round, best_val_acc
+
+if __name__ == "__main__" :
+    print("Hello world")

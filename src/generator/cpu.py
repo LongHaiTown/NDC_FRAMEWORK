@@ -102,8 +102,7 @@ def benchmark_encryption_cpu(encryption_function,batch_size, num_round):
     print(f"Peak memory: {peak / 1024:.2f} KB")
 
 if __name__ == "__main__":
-    from ciphers.cpu import lea, present80
-    cipher_name = "present80"  
+    cipher_name = "present"  
     encryption_function = present80.encrypt
     plain_bits = present80.plain_bits
     key_bits = present80.key_bits
