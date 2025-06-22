@@ -79,6 +79,7 @@ def check_testvectors():
     print("Match expected ciphertext [0xa868, 0x42f2]?")
     print(cp.all(c[0] == cp.array([0xa868, 0x42f2], dtype=cp.uint16)))
 
+check_testvectors()
 def benchmark_gpu(batch_size=100000):
     p = cp.zeros((batch_size, 2), dtype=cp.uint16)
     k = cp.zeros((batch_size, 4), dtype=cp.uint16)

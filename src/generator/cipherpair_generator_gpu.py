@@ -1,9 +1,9 @@
+# Ciphertext pair GPU generator
 import time
 import cupy as cp
 from os import urandom
 
 from ciphers.gpu import present80_gpu
-from ciphers.gpu import p
 def make_train_data(encryption_function, plain_bits, key_bits, n, nr, delta_state=0, delta_key=0):
     """Sinh dữ liệu train cho NDC dùng cupy (GPU)."""
     # random keys & plaintext (0/1), tạo trên GPU

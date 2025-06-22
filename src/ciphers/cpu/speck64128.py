@@ -1,9 +1,12 @@
 # Cihper SPECK-64-128
+import time
 import numpy as np
 
 plain_bits = 64
 key_bits = 128
 word_size = 32
+rounds = 22
+
 
 def WORD_SIZE():
     return(32);
@@ -98,5 +101,15 @@ def check_testvectors():
   print(hex(c[0][0]))
   print(hex(c[0][1]))
   assert np.all(c[0] == [0x8c6fa548, 0x454e028b])
+
+
+def benchmark_numpy(batch_size=10000, rounds=rounds):
+    p = np.zeros((batch_size, 64), dtype=np.uint8)   # 64 bits plaintext
+    k = np.zeros((batch_size, 128), dtype=np.uint8)  # 128 bits key
+    start = time.time()
+    _ = encrypt(p, k, rounds)
+    end = time.time()
+    print(f'{batch_size} blocks, {rounds} rounds: {end-start:.4f}s, tốc độ = {batch_size/(end-start):,.2f} blocks/sec')
+
 
 check_testvectors()
